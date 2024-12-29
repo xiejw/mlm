@@ -1,0 +1,30 @@
+\input src/format
+
+\sec{XGBoost Algorithrm}
+
+XGBoost is a highly scalable gradient boosting machine learning library. We will
+study its basic algorithm and then the parallel optimization algorithm.
+
+\subsec{Gradient Boosting Tree}
+
+Let $\bar{x}$ be an $m$-feature input sample and $y$ be the coressponding real value label.
+Given an $N$-length input sequence $(\bar{x}_1, y_1), (\bar{x}_2, y_2), \ldots, (\bar{x}_N,y_N)$,
+gradient boosting aims to optimize the function
+approximation with an additive manner, i.e., after iteration $ K-1 $, train a
+new $ f_{K }$ (usually a tree) such that for predictions
+$$
+{\hat{y}}_i = \phi(\bar{x}_i)
+= \sum_{k=1}^K f_{k} (\bar{x}_i)
+= \left[ \sum_{k=1}^{K-1} f_{k} (\bar{x}_i) \right] + f_K(\bar{x}_i)
+$$
+minimize the loss of
+$$
+L = \left[
+  \sum_{i=1}^N l (y_i - \hat{y}_i)
+    \right]
++ \Omega(\phi)
+$$
+where $\Omega$ is the regularization.
+
+\vfill
+\bye
