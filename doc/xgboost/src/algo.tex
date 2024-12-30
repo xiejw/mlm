@@ -36,9 +36,9 @@ L
   \right\}
 + \Omega(\phi_K)
 $$
-where $l$ is a convex loss function and $\Omega$ is the regularization on the number of leaves $T$ and squares of
-weights of all leaves $w_j, \forall j \in\{1, 2, \ldots, T\}$ of all trees,
-i.e.,
+where $l(\cdot)$ is a convex loss function and $\Omega$ is the regularization on
+the number of leaves $T_{\{\cdot\}}$ and squares sum of all leaves weights
+$w_{\{\cdot\},j}, \forall j \in\{1, 2, \ldots, T\}$ of all trees, i.e.,
 $$
 \eqalignno{
 \Omega(\phi_K)
@@ -50,27 +50,27 @@ $$
                \right)
   \right]
 \cr
-&
-= \left\{
-    \alpha
-      \left(
-        \sum_{k=1}^{K-1} T_k
-      \right)
-    + \gamma
-      \left[
-        \sum_{k=1}^{K-1}
-          \left( \sum_{j=1}^{T_k} || w_{k,j} ||^2
-          \right)
-      \right]
-  \right\}
-+ \left\{
-    \alpha
-      T_K
-    + \gamma
-        \left( \sum_{j=1}^{T_K} || w_{K,j} ||^2
-        \right)
-  \right\}
-\cr
+%&
+%= \left\{
+%    \alpha
+%      \left(
+%        \sum_{k=1}^{K-1} T_k
+%      \right)
+%    + \gamma
+%      \left[
+%        \sum_{k=1}^{K-1}
+%          \left( \sum_{j=1}^{T_k} || w_{k,j} ||^2
+%          \right)
+%      \right]
+%  \right\}
+%+ \left\{
+%    \alpha
+%      T_K
+%    + \gamma
+%        \left( \sum_{j=1}^{T_K} || w_{K,j} ||^2
+%        \right)
+%  \right\}
+%\cr
 &
 = \Omega(\phi_{K-1})
 + \left\{
