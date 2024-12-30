@@ -1,7 +1,10 @@
-\input src/gist_format
+\input src/format
+
+\def\loss{{\rm Loss}}
+\def\dv{{\rm d}}
 
 % {{{1 Section Problem
-\section{Problem}
+\sec{Problem}
 \mnote{2019-05-01}
 
 Given predictions ${\bf p} = [p_1, p_2, \ldots, p_n]$ and targets
@@ -20,7 +23,7 @@ However, this gradient is not numerical stable, as for any super small $p_i$,
 i.e., $p_i \to 0$, the gradient is \symbol{NaN}.
 
 % {{{1 Section Solution
-\section{Solution}
+\sec{Solution}
 
 A common trick to solve this is calculating the gradient from loss $\loss$ w.r.t.
 the logits $o_i$  directly, where
@@ -60,7 +63,7 @@ $$
 where $\sum_k { y_k} = 1$ given ${\bf y}$ is target probability.
 
 % {{{1 Section DL Framework
-\section{Deep Learning Framework}
+\sec{Deep Learning Framework}
 
 Due to this reason, most deep learning frameworks provide API for users, e.g.,
 \symbol{tf.nn.softmax_cross_entropy_with_logits} in TensorFlow.

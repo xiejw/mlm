@@ -1,6 +1,7 @@
 \input src/format
 
 \sec{XGBoost Algorithrm}
+\mnote{2024-12-29}
 
 XGBoost is a highly scalable gradient boosting machine learning library. We will
 study its basic algorithm and then the parallel optimization algorithm.
@@ -24,7 +25,9 @@ L = \left[
     \right]
 + \Omega(\phi)
 $$
-where $\Omega$ is the regularization.
+where $\Omega$ is the regularization on the number of leaves $T$ and squares of
+weights of all leaves $w_j, \forall j \in\{1, 2, \ldots, T\}$. The major idea is
+to do Tayler
 
 \vfill
 \bye

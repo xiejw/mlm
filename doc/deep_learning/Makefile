@@ -1,7 +1,7 @@
 SRC     = src
 BUILD   = .build
 
-FORMAT  = src/format.tex src/gist_format.tex
+FORMAT  = src/format.tex
 DEPS    = src/sigmoid.tex src/sft_centropy.tex
 
 OUTS    = $(subst tex,pdf,$(subst src,${BUILD},${DEPS}))
@@ -13,3 +13,6 @@ ${BUILD}/%.pdf: ${SRC}/%.tex ${FORMAT} | ${BUILD}
 
 ${BUILD}:
 	mkdir -p ${BUILD}
+
+clean:
+	rm -rf ${BUILD}
