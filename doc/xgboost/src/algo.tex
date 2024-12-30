@@ -14,20 +14,76 @@ gradient boosting aims to optimize the function
 approximation with an additive manner, i.e., after iteration $ K-1 $, train a
 new $ f_{K }$ (usually a tree) such that for predictions
 $$
-{\hat{y}}_i = \phi(\bar{x}_i)
+{\hat{y}}_i = \phi_K(\bar{x}_i)
 = \sum_{k=1}^K f_{k} (\bar{x}_i)
 = \left[ \sum_{k=1}^{K-1} f_{k} (\bar{x}_i) \right] + f_K(\bar{x}_i)
 $$
 minimize the loss of
 $$
-L = \left[
-  \sum_{i=1}^N l (y_i - \hat{y}_i)
-    \right]
-+ \Omega(\phi)
+L
+= \left[
+    \sum_{i=1}^N l (y_i , \hat{y}_i)
+  \right]
++ \Omega(\phi_K)
+= \left\{
+    \sum_{i=1}^N l
+      \left(
+        y_i ,
+        \left[
+           \sum_{k=1}^{K-1} f_{k} (\bar{x}_i)
+        \right] - f_K(\bar{x}_i)
+      \right)
+  \right\}
++ \Omega(\phi_K)
 $$
-where $\Omega$ is the regularization on the number of leaves $T$ and squares of
-weights of all leaves $w_j, \forall j \in\{1, 2, \ldots, T\}$. The major idea is
-to do Tayler
+where $l$ is a convex loss function and $\Omega$ is the regularization on the number of leaves $T$ and squares of
+weights of all leaves $w_j, \forall j \in\{1, 2, \ldots, T\}$ of all trees,
+i.e.,
+$$
+\eqalignno{
+\Omega(\phi_K)
+&
+= \alpha \left( \sum_{k=1}^K T_k
+  \right)
++ \gamma \left[
+  \sum_{k=1}^K \left( \sum_{j=1}^{T_k} || w_{k,j} ||^2
+               \right)
+  \right]
+\cr
+&
+= \left\{
+    \alpha
+      \left(
+        \sum_{k=1}^{K-1} T_k
+      \right)
+    + \gamma
+      \left[
+        \sum_{k=1}^{K-1}
+          \left( \sum_{j=1}^{T_k} || w_{k,j} ||^2
+          \right)
+      \right]
+  \right\}
++ \left\{
+    \alpha
+      T_K
+    + \gamma
+        \left( \sum_{j=1}^{T_K} || w_{K,j} ||^2
+        \right)
+  \right\}
+\cr
+&
+= \Omega(\phi_{K-1})
++ \left\{
+    \alpha
+      T_K
+    + \gamma
+        \left( \sum_{j=1}^{T_K} || w_{K,j} ||^2
+        \right)
+  \right\}
+}
+$$
+
+% The major idea is to do Tayler
 
 \vfill
 \bye
