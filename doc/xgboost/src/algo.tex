@@ -259,6 +259,43 @@ $$
 }
 $$
 
+\subsec{Distributed Algorithm}
+
+Let's focus on single feature first, $m=1$. In order to find the best split, we
+need
+- focus on each node $2^D$
+- sort all the nodes in that node $O(n_i\log n_i)$.
+- go throught all nodes in order one by one and identify the best split
+  resulting to the best loss reduction $O(n_i)$.
+
+This is called exact splitting.
+
+Node level parallel is not very scalable and often has very poor load balancing.
+The second loop is terribly bad apparantly. Not only sorting in one machine is
+very challenging for super large dataset, but also all machines need to read all
+data, which are super slow, and inefficient.
+
+A quite smart way is to use approximation splitting. Instead of splitting at the
+features in the datasets, we could split at the some pencentiles approximation
+points with estimated $g_i$ and $h_i$. To be specific, with a hyper parameters
+of the bin size $B$, all nodes are put into the bins and each bin record the
+average values of $g_i$ and $h_i$. This is the histgram which can be built in a
+distributed manner (see ref1 and ref2). When a center driver merges the
+histgram, it can estimate the percentile positions and decide the approximation
+split.
+
+Then the algorithm is the following
+- For depth level $l$, $l<=4$. $4$
+- Each machine only reads only the non-overlapping data partitions belong it and then
+  map the input to the node at depth $l$, it builds the histgram for each
+  feature dimension, so total of $m$ histgrams.
+- Distribute histgrams to driver and the driver will merge them and then decide
+  the split. Driver broadcasts this info to all machines. So $l+1$ level is built.
+- Repeat for next depth level.
+
+2024-12-22 Streaming Parallel Decision Tree Algorithm \url{https://www.jmlr.org/papers/v11/ben-haim10a.html}
+Parallel Boosted Regression Trees for Web Search Ranking \url{https://www.cs.cornell.edu/~kilian/papers/fr819-tyreeA.pdf}
+\url{https://ieeexplore.ieee.org/document/8890990}
 
 \vfill
 \bye
